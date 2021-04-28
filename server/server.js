@@ -4,7 +4,7 @@
 const express = require('express')
 const routeStripe = require('./controllers/routeStripeWebhook')
 
-// Initialize...
+// Initialize...like a boss
 const server = express()
 
 server.use(express.raw({ type: 'application/json' }))
