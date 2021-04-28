@@ -3,6 +3,7 @@
 
 const express = require('express')
 const routeStripe = require('./controllers/routeStripeWebhook')
+const { getData } = require('./controllers/getData')
 
 // Initialize...like a boss
 const server = express()
@@ -17,5 +18,11 @@ server.use(
 server.use('/stripe', routeStripe)
 
 console.log(process.env.NODE_ENV)
+
+const people = getData('SELECT * FROM personstbl')
+//console.log(meow)
+people.then((result) => {
+    console.log(result)
+})
 
 module.exports = server

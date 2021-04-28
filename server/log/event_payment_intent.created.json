@@ -1,5 +1,5 @@
 {
-  "id": "pi_1IkylsBJ6cz979G2uySXldPU",
+  "id": "pi_1IlLFWBJ6cz979G2k9p7YbSc",
   "object": "payment_intent",
   "amount": 2000,
   "amount_capturable": 0,
@@ -14,15 +14,15 @@
     "data": [],
     "has_more": false,
     "total_count": 0,
-    "url": "/v1/charges?payment_intent=pi_1IkylsBJ6cz979G2uySXldPU"
+    "url": "/v1/charges?payment_intent=pi_1IlLFWBJ6cz979G2k9p7YbSc"
   },
-  "client_secret": "pi_1IkylsBJ6cz979G2uySXldPU_secret_ByxBFSURiazMO81PtTVBC77Wt",
+  "client_secret": "pi_1IlLFWBJ6cz979G2k9p7YbSc_secret_YhKB4bYurCmKycU9Wx3HaYaj8",
   "confirmation_method": "automatic",
-  "created": 1619560124,
+  "created": 1619646530,
   "currency": "usd",
-  "customer": null,
-  "description": "(created by Stripe CLI)",
-  "invoice": null,
+  "customer": "cus_JO7UIzBkS90Gq4",
+  "description": "Payment for Invoice",
+  "invoice": "in_1IlLFVBJ6cz979G2Y5Vyg81F",
   "last_payment_error": null,
   "livemode": false,
   "metadata": {},
@@ -42,20 +42,7 @@
   "receipt_email": null,
   "review": null,
   "setup_future_usage": null,
-  "shipping": {
-    "address": {
-      "city": "San Francisco",
-      "country": "US",
-      "line1": "510 Townsend St",
-      "line2": null,
-      "postal_code": "94103",
-      "state": "CA"
-    },
-    "carrier": null,
-    "name": "Jenny Rosen",
-    "phone": null,
-    "tracking_number": null
-  },
+  "shipping": null,
   "source": null,
   "statement_descriptor": null,
   "statement_descriptor_suffix": null,
