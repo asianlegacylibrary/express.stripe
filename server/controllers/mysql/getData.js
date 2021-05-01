@@ -1,5 +1,5 @@
 //var database = require('../db')
-const SSHConnection = require('../mysqlConfig')
+const SSHConnection = require('../../mysqlConfig')
 module.exports = {
     getData(q) {
         // async connection to database

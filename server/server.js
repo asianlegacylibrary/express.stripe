@@ -2,27 +2,23 @@
 // See your keys here: https://dashboard.stripe.com/apikeys
 
 const express = require('express')
-const routeStripe = require('./controllers/routeStripeWebhook')
-const { getData } = require('./controllers/getData')
+const routeStripe = require('./controllers/stripe/routeStripeWebhook')
+const routeMysql = require('./controllers/mysql/routeMysql')
 
 // Initialize...like a boss
 const server = express()
 
-server.use(express.raw({ type: 'application/json' }))
+//server.use('/stripe', express.raw({ type: 'application/json' }))
+//server.use(express.json())
 server.use(
     express.urlencoded({
         extended: true
     })
 )
 
-server.use('/stripe', routeStripe)
+server.use('/stripe', express.raw({ type: 'application/json' }), routeStripe)
+server.use('/mysql', routeMysql)
 
 console.log(process.env.NODE_ENV)
-
-const people = getData('SELECT * FROM personstbl')
-//console.log(meow)
-people.then((result) => {
-    console.log(result)
-})
 
 module.exports = server

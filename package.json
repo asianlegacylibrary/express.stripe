@@ -5,16 +5,20 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "prod": "NODE_ENV=production node index.js",
-    "dev": "NODE_ENV=development node index.js"
+    "prod": "NODE_ENV=production nodemon index.js",
+    "dev": "NODE_ENV=development nodemon index.js"
   },
   "author": "stripe-samples",
   "license": "ISC",
   "dependencies": {
+    "@elastic/elasticsearch": "^7.12.0",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
+    "elasticsearch": "^16.7.2",
     "express": "^4.17.1",
     "mysql2": "^2.2.5",
+    "nodemon": "^2.0.7",
     "ssh2": "^0.8.9",
     "stripe": "^7.1.0"
   }
