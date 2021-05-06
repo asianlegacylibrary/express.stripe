@@ -2,13 +2,13 @@ const express = require('express')
 const stripe = require('stripe')
 
 const { createDebugFile } = require('../../tools/createDebugFile')
-const { flatten } = require('../../tools/json/flatten')
-const { parseForKindful } = require('../../tools/kindful/parseForKindful')
+const { flatten } = require('../../tools/flatten')
+const { parseForKindful } = require('../../tools/parseForKindful')
 const { putStripeRecord } = require('../../models/stripe/putStripeRecord')
 const {
     getKindfulWithPromise,
     getKindful
-} = require('../kindful/getKindfulEndpoint')
+} = require('../../models/kindful/getKindfulEndpoint')
 const { kindfulEndpoints } = require('../../statics')
 
 const router = express.Router()
@@ -63,7 +63,7 @@ router.post('/', async (request, response) => {
                 }
             }
             //let data = await getKindful(options)
-            //console.log('FUUUUUUUUUUUUUUUK', data[0].name)
+
             getKindfulWithPromise(options)
                 .then((data) => {
                     console.log(data)

@@ -17,10 +17,14 @@ server.use(
     })
 )
 
+// SET THE ROUTES, optional middleware, and route controller
+// Stripe - this route listens for stripe webhook and processes to elastic (and next to kindful)
 server.use('/stripe', express.raw({ type: 'application/json' }), routeStripe)
-server.use('/mysql', routeMysql)
-server.use('/kindful', routeKindful)
 
-console.log(process.env.NODE_ENV)
+// MySQL - this route is exploratory, we're just viewing table data from MySQL
+server.use('/mysql', routeMysql)
+
+// Kindful - also exploratory, just outputting the kindful metadata (funds, campaigns, details)
+server.use('/kindful', routeKindful)
 
 module.exports = server

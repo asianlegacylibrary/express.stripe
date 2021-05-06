@@ -1,6 +1,9 @@
 const { writeFile } = require('fs/promises')
 //const fs = require('fs')
 const { queryFilePaths } = require('../statics')
+
+// NOTE THAT THIS IS MESSING WITH THE ROUTE RESPONSE SENDS
+// Should be fixed if properly changed to async / promises
 exports.createDebugFile = async (body, fileName) => {
     let logFilePath =
         process.env.NODE_ENV !== 'production'

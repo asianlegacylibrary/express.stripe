@@ -1,7 +1,10 @@
 const express = require('express')
 const { kindfulEndpoints } = require('../../statics')
-const { getKindfulWithPromise, getKindful } = require('./getKindfulEndpoint')
-const { parseKindfulData } = require('../../tools/parse/parseKindfulData')
+const {
+    getKindfulWithPromise,
+    getKindful
+} = require('../../models/kindful/getKindfulEndpoint')
+const { filterKindfulMetadata } = require('../../tools/filterKindfulMetadata')
 
 const router = express.Router()
 
@@ -19,16 +22,16 @@ router.get('/', async (request, response) => {
     try {
         data = await getKindful(options)
 
-        data = parseKindfulData(data)
+        data = filterKindfulMetadata(data)
     } catch (error) {
         console.error('error', error)
         data = error
     } finally {
         console.log('Finished request...')
     }
-    console.log(data)
+
     response.send(data)
-    //
+
     // console.log(data)
     // response.send(data)
     // getKindfulWithPromise(options)

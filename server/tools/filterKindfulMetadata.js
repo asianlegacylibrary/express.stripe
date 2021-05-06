@@ -1,5 +1,5 @@
 module.exports = {
-    parseKindfulData(data) {
+    filterKindfulMetadata(data) {
         let newArray = []
         if (data !== null) {
             if (Array.isArray(data)) {
