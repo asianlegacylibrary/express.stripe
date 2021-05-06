@@ -5,16 +5,19 @@ const { createDebugFile } = require('../../tools/createDebugFile')
 const { flatten } = require('../../tools/json/flatten')
 const { parseForKindful } = require('../../tools/kindful/parseForKindful')
 const { putStripeRecord } = require('../../models/stripe/putStripeRecord')
+const {
+    getKindfulWithPromise,
+    getKindful
+} = require('../kindful/getKindfulEndpoint')
+const { kindfulEndpoints } = require('../../statics')
 
 const router = express.Router()
 
 let endpointSecret = process.env.STRIPE_SIGNATURE
-let logFilePath = '/home/joel/logs'
 //let endpointSecret = process.env.STRIPE_LIVE_TESTING_SIGNATURE
 
 if (process.env.NODE_ENV !== 'production') {
     endpointSecret = process.env.STRIPE_DEVELOPMENT
-    logFilePath = './server/log'
 }
 
 let stripeEvents = [
@@ -43,24 +46,45 @@ router.post('/', async (request, response) => {
             paymentIntent,
             `f1_stripe_${event.type}`
         )
+        console.log('response from elastic', body)
 
-        console.log('elastic resp body', body)
         if (event.type === 'payment_intent.succeeded') {
             const kindfulData = parseForKindful(event.data.object)
-            createDebugFile(
-                kindfulData,
-                `${logFilePath}/kindful_${event.type}.json`
-            )
-            console.log('in payment intent success')
+            //await createDebugFile(kindfulData, `kindful_${event.type}3333.json`)
+            console.log('in payment intent success', kindfulData)
+            let options = {
+                url: kindfulEndpoints['imports'].path,
+                method: kindfulEndpoints['imports'].method,
+                body: request.body,
+                data: kindfulData,
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Token token=${process.env.KINDFUL_APP_TOKEN}`
+                }
+            }
+            //let data = await getKindful(options)
+            //console.log('FUUUUUUUUUUUUUUUK', data[0].name)
+            getKindfulWithPromise(options)
+                .then((data) => {
+                    console.log(data)
+                    //response.send(data.status)
+                })
+                .catch((e) => {
+                    console.error('error', e)
+                    //response.send(e)
+                    //response.end(e)
+                })
+                .then(() => {
+                    console.log('Finished request...')
+                })
         }
 
         // these files just for debugging
-        createDebugFile(
-            event.data.object,
-            `${logFilePath}/event_${event.type}.json`
-        )
-        createDebugFile(paymentIntent, `${logFilePath}/flat_${event.type}.json`)
+        //createDebugFile(event.data.object, `event_${event.type}.json`)
+        //createDebugFile(paymentIntent, `flat_${event.type}.json`)
     }
+
+    // AT ANY POINT IN THE ROUTE I SHOULD BE ABLE TO MAKE A CALL TO ANOTHER ENDPOINT
 
     // Return a response to acknowledge receipt of the event
     response.json({ received: true })

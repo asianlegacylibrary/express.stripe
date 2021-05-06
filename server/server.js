@@ -4,6 +4,7 @@
 const express = require('express')
 const routeStripe = require('./controllers/stripe/routeStripeWebhook')
 const routeMysql = require('./controllers/mysql/routeMysql')
+const routeKindful = require('./controllers/kindful/routeKindful')
 
 // Initialize...like a boss
 const server = express()
@@ -18,6 +19,7 @@ server.use(
 
 server.use('/stripe', express.raw({ type: 'application/json' }), routeStripe)
 server.use('/mysql', routeMysql)
+server.use('/kindful', routeKindful)
 
 console.log(process.env.NODE_ENV)
 

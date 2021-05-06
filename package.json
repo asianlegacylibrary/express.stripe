@@ -19,6 +19,7 @@
     "express": "^4.17.1",
     "mysql2": "^2.2.5",
     "nodemon": "^2.0.7",
+    "request-promise": "^4.2.6",
     "ssh2": "^0.8.9",
     "stripe": "^7.1.0"
   }
